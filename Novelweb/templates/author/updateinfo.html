@@ -1,0 +1,28 @@
+{% extends '../userinfo.html' %}
+{% block right %}
+
+<h3 class="uinfo-right-title">我的资料</h3>
+<div class="top-margin left-part update-div">
+	<form action="/updateinfo/" method="POST" enctype="multipart/form-data">
+		{% csrf_token %}
+		<ul>
+			<li><label>个人账号：</label>{{ user.user_id }}</li>
+			<li><label>用户名：</label><input type="text" name="username" value="{{user.username}}" class="input" required="true"></li>
+			{% if author%}
+			<li><label>笔名：</label><input type="text" name="penname" value="{{author.penname}}" class="input" required="true"></li>
+			{% endif %}
+			<li>
+				<label>头像：</label>
+				<div class="bookcover-box">
+					<img src="{{user.user_avatar.url}}">
+					<input type="file" name="avatar" class="cover input" accept="image/*">
+					<input type="hidden" name="pre_avatar" value="{{user.user_avatar}}">
+				</div>
+				<span>点击图片上传</span>
+			</li>
+		</ul>
+		<button type="submit" class="big-btn">修改资料</button>
+	</form>
+</div>
+
+{% endblock %}

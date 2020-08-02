@@ -1,0 +1,65 @@
+{% extends '../author_info.html' %}
+{% block right %}
+<h3 class="uinfo-right-title">添加书籍</h3>
+<div class="create-book top-margin">
+	<form action="/create_book/" method="POST" enctype="multipart/form-data">
+		{% csrf_token %}
+		<ul>
+			<li>
+				<label>书名：</label>
+				<input type="text" name="bookname" class="bookname-input" required="true" placeholder="书名（必填）">
+			</li>
+			<li>
+				<label>封面：</label>
+				<div class="bookcover-box">
+					<img src="/static/img/cover.png">
+					<input type="file" name="cover" class="cover" accept="image/*">
+				</div>
+				<span>点击图片上传</span>
+			</li>
+			<li>
+				<label>类型：</label>
+				<!-- <input list="type" name="type" class="type-input">
+				<datalist id="type">
+					<option value="玄幻仙侠"></option>
+					<option value="游戏竞技"></option>
+					<option value="古代言情"></option>
+					<option value="现代言情"></option>
+					<option value="幻想言情"></option>
+					<option value="浪漫青春"></option>
+					<option value="其他"></option>
+				</datalist> -->
+				<select name="type">
+					<option value="古代言情">古代言情</option>
+					<option value="仙侠奇缘">仙侠奇缘</option>
+					<option value="现代言情">现代言情</option>
+					<option value="浪漫青春">浪漫青春</option>
+					<option value="玄幻言情">玄幻言情</option>
+					<option value="悬疑推理">悬疑推理</option>
+					<option value="游戏竞技">游戏竞技</option>
+					<option value="轻小说">轻小说</option>
+					<option value="科幻空间">科幻空间</option>
+					<option value="其它">其他</option>
+				</select>
+			</li>
+			<li>
+				<label>标签：</label>
+				<br/>
+				<div class="left-part tags-box"></div>
+			</li>
+			<li>
+				<label>简介：</label>
+				<textarea cols="50" rows="8" name="bookintro" placeholder="简介"></textarea>
+			</li>
+			<li>
+				<label>主角：</label>
+				<input type="text" name="manleader" class="type-input" placeholder="必填" required="true">
+				<label>-</label>
+				<input type="text" name="womanleader" class="type-input" placeholder="必填" required="true">
+			</li>
+		</ul>
+		<button type="submit" disabled="true">添加</button>
+	</form>
+</div>
+
+{% endblock %}

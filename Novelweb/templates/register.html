@@ -1,0 +1,33 @@
+{% extends 'frame.html' %}
+{%block container%}
+
+<div class="wrap-shodow register-box">
+	<h3 class="register-title">欢迎加入九九小说</h3>
+	<div class="register">
+		<form class="login-form" method="POST" action="/register/">
+			{% csrf_token %}
+			<div class="username">
+				<input type="text" name="username" placeholder="请输入用户名">
+			</div>
+			<div class="pas">
+				<input type="password" name="pas" placeholder="请输入密码,至少7位">
+			</div>
+			<div class="new_pas">
+				<input type="password" name="pas1" placeholder="确认密码">
+			</div>
+			<div class="code_box">
+				<div class="code">
+					<input type="text" name="code" placeholder="请输入验证码">
+					<div class="code-img">验证码</div>
+				</div>
+			</div>
+			<input type="file" name="avatar" hidden="true">
+			<button type="submit " disabled>注册</button>
+		</form>
+	</div>
+</div>
+
+{% endblock%}
+{% block js %}
+<script type="text/javascript" src="/static/js/register.js"></script>
+{% endblock %}

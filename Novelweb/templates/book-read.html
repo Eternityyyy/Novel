@@ -1,0 +1,44 @@
+{% extends 'frame.html' %}
+{% block container %}
+<div class="read-page">
+	<div class="read-item left-part">
+		<h1 class="read-title" id="top">{{chapter.Chapter_title}}</h1>
+		<p class="chapter-info">
+			<span>作者：{{chapter.Chapter_book.Book_author.penname}}</span>
+			<span>更新时间：{{chapter.Chapter_time|date:'Y-m-d'}}</span>
+			<span>字数：{{chapter.Chapter_word_num}}字</span>
+		</p>
+		<div class="read-content">
+			{% load myfilter %}
+			{% if chapter.Chapter_pub and chapter.Chapter_price <= 0 %}
+			{{chapter.Chapter_text|safe|linebreaksbr}}
+			{% elif chapter.Chapter_pub is False %}
+				<p>章节修改中</p>
+			{% elif 'uid' in request.session %}
+				{% if chapter.buy_user|is_buy_user:request.session.uid %}
+				{{chapter.Chapter_text|safe|linebreaksbr}}
+				{% else %}
+				<p>本章为付费章节</p>
+				<p>您当钱余额为：<i>{{request.session.uid|gold}}</i>金币 / 本章需要<i>{{chapter.Chapter_price}}</i>金币</p>
+					{% if chapter.Chapter_price <= request.session.uid|gold %}
+					<p><a href="/{{chapter.id}}/pay_chapter/">购买本章</a></p>
+					{% else %}
+					<p><a href="/pay/" target="_blank">前往充值</a></p>
+					{% endif %}
+				{% endif %}
+			{% else %}
+			<p><a href="/login/">登录购买</a></p>
+			{% endif %}
+		</div>
+		<p class="chapter-opretion">
+			<a href="/{{bookid}}/{{chapter.Chapter_id|add:-1 }}/">上一章</a>
+			<a href="/{{bookid}}/{{chapter.Chapter_id|add:1 }}/">下一章</a>
+		</p>
+	</div>
+</div>
+<div class="book-nav">
+	<a href="/{{bookid}}/chapters/" class="book-directory wrap-shodow"><img src="/static/img/catalog.png"></a>
+	<a href="/book/{{bookid}}/" class="book-shelf wrap-shodow"><img src="/static/img/shelf.png"></a>
+	<a href="#top" class="backtop wrap-shodow"><img src="/static/img/top.png"></a>
+</div>
+{% endblock %}

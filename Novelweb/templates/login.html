@@ -1,0 +1,27 @@
+{% extends 'frame.html' %}
+
+{% block container %}
+<div class="register-login wrap-shodow">
+	<h3 class="login-title">欢迎登录九九小说网</h3>
+	<form class="login-form" method="POST" action="/login/">
+		{% csrf_token %}
+		<input type="text" name="username" placeholder="请输入用户名">
+		<input type="password" name="pas" placeholder="请输入密码">
+		{% if error %}
+		<p>*{{ error }}</p>
+		{% endif %}
+		<div class="code_box">
+			<div class="code">
+				<input type="text" name="code" placeholder="请输入验证码">
+				<div class="code-img">验证码</div>
+			</div>
+		</div>
+		<button type="submit" disabled>登录</button>
+	</form>
+	<p>还没有账号？<a href="/register/">点击注册</a></p>
+</div>
+
+{% endblock %}
+{% block js %}
+<script type="text/javascript" src="/static/js/login.js"></script>
+{% endblock %}

@@ -1,0 +1,183 @@
+{% extends 'frame.html' %}
+{% block container %}
+
+<div class="rank-title">
+	<h3 class="page-title">
+		排行榜
+	</h3>
+</div>
+<section class="rank-content">
+	<div class="wrap-shodow rank-left">
+		<a href="/rank/" class="library-category-item library-active">排行榜总览</a>
+		<a href="?rank=0" class="library-category-item">土豪榜</a>
+		<a href="?rank=1" class="library-category-item">收藏榜</a>
+		<a href="?rank=2" class="library-category-item">推荐榜</a>
+		<a href="?rank=3" class="library-category-item">订阅榜</a>
+		<a href="?rank=4" class="library-category-item">礼物榜</a>
+		<a href="?rank=5" class="library-category-item">点击榜</a>
+	</div>
+	<div class="rank-right">
+		<div class="wrap-shodow rank-right-top">
+			<div class="recommend-fylists rank-list">
+				<h3 class="recommend-title">土豪榜</h3>
+				<ul class="recommend-list">
+					{%  for moneybook in money_books %}
+					{% if forloop.first %}
+					<li class="list-one">
+						<span class="ranking">1</span>
+						<div class="list-one-book">
+							<a href="/book/{{moneybook.id}}/"><img src="{{moneybook.Book_cover.url}}" class="wrap-shodow"></a>
+							<div class="list-book-info">
+								<h4 class="hide-text"><a href="/book/{{moneybook.id}}/">《{{moneybook.Book_name}}》</a></h4>
+								<p class="hide-text"><a href="/{{moneybook.Book_author.Aut_user_id}}/works/">{{moneybook.Book_author.penname}}</a></p>
+								<p class="book-intro">{{moneybook.Book_intro|safe}}</p>
+							</div>
+						</div>
+					</li>
+					{% else %}
+					<li>
+						<span class="ranking">{{forloop.counter}}</span>
+						<a href="/book/{{moneybook.id}}/" class="single-list">{{moneybook.Book_name}}</a>
+					</li>
+					{% endif %}
+					{% endfor %}
+				</ul>
+				<span><a href="/rank/?rank=0">查看更多>></span>
+			</div>
+			<div class="recommend-fylists rank-list">
+				<h3 class="recommend-title">收藏榜</h3>
+				<ul class="recommend-list">
+					{%  for collectbook in collect_books %}
+					{% if forloop.first %}
+					<li class="list-one">
+						<span class="ranking">1</span>
+						<div class="list-one-book">
+							<a href="/book/{{collectbook.id}}/"><img src="{{collectbook.Book_cover.url}}" class="wrap-shodow"></a>
+							<div class="list-book-info">
+								<h4 class="hide-text"><a href="/book/{{collectbook.id}}/">《{{collectbook.Book_name}}》</a></h4>
+								<p class="hide-text"><a href="/{{collectbook.Book_author.Aut_user_id}}/works/">{{collectbook.Book_author.penname}}</a></p>
+								<p class="book-intro">{{collectbook.Book_intro|safe}}</p>
+							</div>
+						</div>
+					</li>
+					{% else %}
+					<li>
+						<span class="ranking">{{forloop.counter}}</span>
+						<a href="/book/{{collectbook.id}}/" class="single-list">{{collectbook.Book_name}}</a>
+					</li>
+					{% endif %}
+					{% endfor %}
+				</ul>
+				<span><a href="/rank/?rank=1">查看更多>></span>
+			</div>
+			<div class="recommend-fylists rank-list">
+				<h3 class="recommend-title">推荐榜</h3>
+				<ul class="recommend-list">
+					{%  for recbook in rec_books %}
+					{% if forloop.first %}
+					<li class="list-one">
+						<span class="ranking">1</span>
+						<div class="list-one-book">
+							<a href="/book/{{recbook.id}}/"><img src="{{recbook.Book_cover.url}}" class="wrap-shodow"></a>
+							<div class="list-book-info">
+								<h4 class="hide-text"><a href="/book/{{recbook.id}}/">《{{recbook.Book_name}}》</a></h4>
+								<p class="hide-text"><a href="/{{recbook.Book_author.Aut_user_id}}/works/">{{recbook.Book_author.penname}}</a></p>
+								<p class="book-intro">{{recbook.Book_intro|safe}}</p>
+							</div>
+						</div>
+					</li>
+					{% else %}
+					<li>
+						<span class="ranking">{{forloop.counter}}</span>
+						<a href="/book/{{recbook.id}}/" class="single-list">{{recbook.Book_name}}</a>
+					</li>
+					{% endif %}
+					{% endfor %}
+				</ul>
+				<span><a href="/rank/?rank=2">查看更多>></span>
+			</div>
+		</div>
+		<div class="wrap-shodow rank-right-top rank-right-bottom">
+			<div class="recommend-fylists rank-list">
+				<h3 class="recommend-title">订阅榜</h3>
+				<ul class="recommend-list">
+					{%  for subbook in sub_books %}
+					{% if forloop.first %}
+					<li class="list-one">
+						<span class="ranking">1</span>
+						<div class="list-one-book">
+							<a href="/book/{{subbook.id}}/"><img src="{{subbook.Book_cover.url}}" class="wrap-shodow"></a>
+							<div class="list-book-info">
+								<h4 class="hide-text"><a href="/book/{{subbook.id}}/">《{{subbook.Book_name}}》</a></h4>
+								<p class="hide-text"><a href="/{{subbook.Book_author.Aut_user_id}}/works/">{{subbook.Book_author.penname}}</a></p>
+								<p class="book-intro">{{subbook.Book_intro|safe}}</p>
+							</div>
+						</div>
+					</li>
+					{% else %}
+					<li>
+						<span class="ranking">{{forloop.counter}}</span>
+						<a href="/book/{{subbook.id}}/" class="single-list">{{subbook.Book_name}}</a>
+					</li>
+					{% endif %}
+					{% endfor %}
+				</ul>
+				<span><a href="/rank/?rank=3">查看更多>></span>
+			</div>
+			<div class="recommend-fylists rank-list">
+				<h3 class="recommend-title">礼物榜</h3>
+				<ul class="recommend-list">
+					{%  for gifbook in gif_books %}
+					{% if forloop.first %}
+					<li class="list-one">
+						<span class="ranking">1</span>
+						<div class="list-one-book">
+							<a href="/book/{{gifbook.id}}/"><img src="{{gifbook.Book_cover.url}}" class="wrap-shodow"></a>
+							<div class="list-book-info">
+								<h4 class="hide-text"><a href="/book/{{gifbook.id}}/">《{{gifbook.Book_name}}》</a></h4>
+								<p class="hide-text"><a href="/{{gifbook.Book_author.Aut_user_id}}/works/">{{gifbook.Book_author.penname}}</a></p>
+								<p class="book-intro">{{gifbook.Book_intro|safe}}</p>
+							</div>
+						</div>
+					</li>
+					{% else %}
+					<li>
+						<span class="ranking">{{forloop.counter}}</span>
+						<a href="/book/{{gifbook.id}}/" class="single-list">{{gifbook.Book_name}}</a>
+					</li>
+					{% endif %}
+					{% endfor %}
+				</ul>
+				<span><a href="/rank/?rank=4">查看更多>></span>
+			</div>
+			<div class="recommend-fylists rank-list">
+				<h3 class="recommend-title">点击榜</h3>
+				<ul class="recommend-list">
+					{%  for clickbook in click_books %}
+					{% if forloop.first %}
+					<li class="list-one">
+						<span class="ranking">1</span>
+						<div class="list-one-book">
+							<a href="/book/{{clickbook.id}}/"><img src="{{clickbook.Book_cover.url}}" class="wrap-shodow"></a>
+							<div class="list-book-info">
+								<h4 class="hide-text"><a href="/book/{{clickbook.id}}/">《{{clickbook.Book_name}}》</a></h4>
+								<p class="hide-text"><a href="/{{clickbook.Book_author.Aut_user_id}}/works/">{{clickbook.Book_author.penname}}</a></p>
+								<p class="book-intro">{{clickbook.Book_intro|safe}}</p>
+							</div>
+						</div>
+					</li>
+					{% else %}
+					<li>
+						<span class="ranking">{{forloop.counter}}</span>
+						<a href="/book/{{clickbook.id}}/" class="single-list">{{clickbook.Book_name}}</a>
+					</li>
+					{% endif %}
+					{% endfor %}
+				</ul>
+				<span><a href="/rank/?rank=5">查看更多>></span>
+			</div>
+		</div>
+	</div>
+</section>
+
+{% endblock %}

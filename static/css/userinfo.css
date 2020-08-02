@@ -1,0 +1,355 @@
+.top-margin{
+	margin: 20px 0px 30px;
+}
+.uinfo-left span{
+	display: inline-block;
+	text-align: center;
+	width: 100%;
+	height: 44px;
+	line-height: 44px;
+}
+.uinfo-left .uinfo-active{
+	color: var(--CurrentColor);
+}
+
+.uinfo-right{
+	min-width: 850px;
+	margin-left: 20px;
+}
+.uinfo-right-title{
+	font-size: var(--BigerFontSize);
+	color: var(--TitleColor);
+	padding: 20px 0px;
+	border-bottom: 1px solid #f7f7f7;
+}
+.uinfo-main{
+	width: 100%;
+	display: flex;
+	margin-top: 20px;
+}
+.uinfo-avatar{
+	width: 100px;
+	margin-right: 20px;
+}
+.uinfo-avatar img{
+	width: 100px;
+	height: 100px;
+}
+.uinfo-main span{
+	color: var(--CurrentColor);
+	font-size: var(--SmallFontSize);
+}
+.uinfo-level{
+	width: 70%;
+}
+.uinfo-level .name input{
+	display: inline-block;
+	border: 0;
+	font-weight: 700;
+	font-size: var(--BigFontSize);
+	color: var(--TitleColor);
+}
+.uinfo-level .userid,.uinfo-level .level{
+	font-size: var(--SmallFontSize);
+	color: var(--ShortTextColor);
+}
+.uinfo-level .userid{
+	line-height: 55px;
+}
+.uinfo-money{
+	margin: 30px 0px 20px;
+	flex-wrap: wrap;
+}
+.uinfo-money span{
+	line-height: 44px;
+	display: inline-block;
+	width: 26%;
+	color: var(--LongTextColor);
+}
+.uinfo-left-top span:first-of-type,.uinfo-left-bottom span:first-of-type{
+	border-bottom: 1px solid var(--BorderLineColorLight);
+}
+.author-res li,.author-info p,.create-book li{
+	padding: 10px 0px;
+	display: flex;
+	align-items: center;
+}
+.author-res li label,.author-info span,.create-book label{
+	font-size: var(--SmallFontSize);
+	display: inline-block;
+	width: 6rem;
+	text-align: right;
+}
+.author-res li input,.bookname-input,.type-input{
+	display: inline-block;
+	border-radius: 2px;
+	height: 30px;
+	width: 20rem;
+	border: 1px solid var(--BorderLineColorLight);
+}
+.author-res textarea,.create-book textarea{
+	border: 1px solid var(--BorderLineColorLight);
+}
+.author-res button,.create-book button{
+	display: inline-block;
+	width: 6rem;
+	height: 30px;
+	background: var(--CurrentColor);
+	color: white;
+	border: 0px;
+	margin: 1rem 0 0 7rem;
+}
+.author-res li span{
+	color: red;
+	font-size: var(--SmallFontSize);
+}
+.uinfo-left-bottom{
+	margin-top: 20px;
+}
+.author-info img{
+	width: 100px;
+	height: 100px;
+}
+.create-book-list table{
+	width: 100%;
+	margin: 20px 0px;
+	text-align: center;
+}
+.tags-box{
+	border: 1px solid var(--CurrentColor);
+	border-radius: 2px;
+	width: 80%;
+}
+.tags-box span{
+	color: var(--CurrentColor);
+}
+.create-bookname img{
+	width: 90px;
+	height: 130px;
+	margin-right: 20px;
+	padding: 10px 0px;
+}
+.book-word-num span{
+	font-size: var(--SmallFontSize);
+	color: var(--ShortTextColor);
+}
+.book-state span{
+	color: var(--CurrentColor);
+	border-radius: 2px;
+	padding: 5px 10px;
+	border: 1px solid var(--CurrentColor);
+}
+.create-book-list tr{
+	border-bottom:1px solid var(--BorderLineColorLight);
+}
+td a{
+	background: var(--CurrentColor);
+	border-radius: 2px;
+	padding: 5px 10px;
+	color: white;
+}
+.create-book-list table tr:first-Child{
+	background: rgb(233,233,233);
+	line-height: 2rem;
+}
+.create-book-list .book-add{
+	padding: 5px 10px;
+	line-height: 2rem;
+	border: 1px solid var(--CurrentColor);
+	border-radius: 2px;
+	color: var(--CurrentColor);
+}
+.create-book span{
+	margin-right: 20px;
+}
+.bookcover-box img{
+	width: 100px;
+	height: 150px;
+}
+.bookcover-box{
+	position: relative; 
+}
+.bookcover-box .cover{
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	display: inline-block;
+	width: 100px;
+	height: 150px;
+	opacity: 0;
+}
+.book-detail-info{
+	position: relative;
+}
+.book-pub{
+	position: absolute;
+	right: 0px;
+	top: 10px;
+}
+.pub-notice{
+	position: absolute;
+	top: 10px;
+	right: 6rem;
+}
+.book-info p{
+	font-size: var(--SmallFontSize);
+	padding: 10px;
+}
+.book-info img{
+	width: 100px;
+	height: 150px;
+	margin-right: 20px;
+}
+.book-info-bottom{
+	width: 600px;
+	height: 400px;
+}
+.book-info-comments .bookinfo-comment-text{
+	font-size: 14px;
+}
+.book-info-comments p:last-Child{
+	text-align: right;
+}
+.book-info-comments .del,.chapter-opretion a,.chapter-item button{
+	font-size: 10px;
+	border-radius: 2px;
+	margin-left: 20px;
+	padding: 2px 5px;
+	color: white;
+	background: var(--CurrentColor);
+}
+.chapter-item button{
+	border: 0;
+}
+.chapter-list{
+	padding: 20px 0px;
+	margin-top: 20px;
+}
+.bookinfo-title{
+	color: var(--TitleColor);
+	padding-bottom: 20px;
+	border-bottom: 1px solid var(--BorderLineColorLight);
+}
+.chapter-list li{
+	flex-wrap: wrap;
+	padding: 0px 20px;
+	line-height: 3rem;
+	font-size: 12px;
+}
+.chapter-list li:nth-child(2n){
+	border-radius: 2px;
+	background: rgb(233,233,233);
+}
+.chapter-list li a span{
+	padding: 0px 5px;
+}
+.chapter-list .chapter-content{
+	width: 100%;
+}
+
+.edit-chapter{
+	width: 80%;
+	margin: 0 auto;
+	position: relative;
+}
+.edit-chapter .input{
+	border: 0;
+	display: inline-block;
+	width: 100%;
+	overflow: hidden;
+}
+.edit-chapter form{
+	padding-top: 3rem;
+}
+.edit-chapter form .chapter-title{
+	padding: 20px;
+	border-bottom: 1px solid var(--BorderLineColorLight);
+}
+.edit-chapter .chapter-text{
+	margin-top: 20px;
+	min-height: 500px;
+}
+.edit-chapter button{
+	border: 0px;
+	background: var(--CurrentColor);
+	color: white;
+	display: inline-block;
+	width: 4rem;
+	line-height: 2rem;
+	position: absolute;
+	right: -5rem;
+	top: 1rem;
+}
+.edit-chapter .save{
+	right: 0;
+}
+
+.display-comment .book-name{
+	font-size: 14px;
+	color: var(--CurrentColor);
+}
+.rack-box{
+	flex-wrap: wrap;
+	width: 90%;
+	padding: 20px 5%;
+	box-shadow: -10px 17px 10px -8px rgb(233,233,233);
+}
+.bookrack-item{
+	width: 19.5%;
+	padding: 10px;
+	box-shadow: 10px 17px 10px -8px rgb(233,233,233);
+}
+.bookrack-box{
+	padding-bottom: 5px;
+}
+.bookrack-item img{
+	width: 100%;
+	height: 200px;
+}
+.economy h3{
+	text-align: center;
+	line-height: 3rem;
+	margin: 20px;
+	border-bottom: 1px solid var(--BorderLineColorLight);
+}
+.economy h3 i{
+	margin-right: 20px;
+	color: var(--CurrentColor);
+	font-size: 1.5rem;
+}
+.economy table{
+	width: 80%;
+	margin: 0px auto;
+	text-align: center;
+}
+.economy table tr{
+	line-height: 3rem;
+}
+.economy table tr:first-child{
+	background: rgb(233,233,233);
+}
+.economy table td{
+	border: 1px solid var(--BorderLineColorLight);
+}
+.economy p{
+	margin-top: 30px;
+}
+.economy p span{
+	margin-right: 20px;
+}
+.economy p span i{
+	color: var(--CurrentColor);
+}
+.economy-box form{
+	margin: 20px 10px;
+	text-align: center;
+}
+.economy-box form input{
+	width: 250px;
+}
+.cash-record{
+	margin: 50px 0px;
+}
+.update-div li{
+	margin: 20px 0px;
+}

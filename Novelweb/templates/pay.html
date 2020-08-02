@@ -1,0 +1,28 @@
+{% extends 'frame.html' %}
+
+{% block container %}
+
+<h3 class="page-title">充值中心</h3>
+<section class="wrap-shodow left-part">
+	<div class="pay">
+		<div class="pay-box">
+			<span><i>100</i>金币</span>
+			<span><i>500</i>金币</span>
+			<span><i>1000</i>金币</span>
+			<span><i>5000</i>金币</span>
+			<span><i>10000</i>金币</span>
+			<span><i>20000</i>金币</span>
+		</div>
+		<form action="/pay/" method="POST">
+			<input type="number" name="price" placeholder="自定义金额" id="money-input" class="input" required="true" min="1">
+			<button type="sumbit">确认支付</button>
+		</form>
+		<p class="notice-text">注：100金币 = 1人民币，1RMB起付</p>
+	</div>
+</section>
+
+{% endblock %}
+
+{% block js%}
+<script type="text/javascript" src="/static/js/pay.js"></script>
+{% endblock %}

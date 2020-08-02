@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>九九小说网站</title>
+
+	<link rel="stylesheet" type="text/css" href="/static/css/base.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/frame.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/index.css">
+	{% block css%}
+	{% endblock %}
+
+</head>
+<body>
+	<header class="top">
+		<div class="top-logo">
+			<a href="/">
+				<img src="/static/img/logo.png">
+			</a>
+			<form class="serach" action="/serach/" method="POST" >
+				{% csrf_token %}
+				<input type="text" name="serach" placeholder="请输入关键字">
+			</form>
+			<a href="/" class="continue">接着读>></a>
+		</div>
+		<div class="top-nav">
+			<nav id="nav">
+				<a href="/">首页</a>
+				<a href="/library/">书库</a>
+				<a href="/rank/">排行榜</a>
+				<a href="/pay/">充值</a>
+			</nav>
+			<div class="login">
+				<a href="/rack/" class="library">我的书架</a>
+				{% if 'aid' in request.session %}
+				<a href="/mycreate/" class="author">作者后台</a>
+				{%else%}
+				<a href="/author/" class="author">作者后台</a>
+				{% endif %}
+				{% if 'uid' in request.session %}
+					{% if 'aid' in request.session %}
+						<a class="user" href="/author/{{request.session.aid}}/"><img src="{{request.session.avatar}}"></a>
+					{% else %}
+						<a class="user" href="/user/{{request.session.uid}}/"><img src="{{request.session.avatar}}"></a>
+					{% endif %}
+				{% else %}
+					<a class="user" href="/login/"><img src="/static/img/default.png"></a>
+				{% endif %}
+			</div>
+		</div>
+	</header>
+
+	<main class="container">
+		{% block container %}
+		{% endblock %}
+	</main>
+
+	<footer class="footer">
+		<div class="footer-link">
+			<h4>友情链接</h4>
+			<a href="https://www.asp1.com.cn" target="_blank">AI阅读网</a>
+            <a href="http://www.guomii.com" target="_blank">果迷阅读</a>
+            <a href="http://www.psptime.net" target="_blank">时光阅读</a>
+            <a href="http://www.muzhituan.cn" target="_blank">拇指阅读</a>
+            <a href="http://www.5how.cn" target="_blank">5号阅读</a>
+            <a href="https://www.ertongtuku.com" target="_blank">二筒阅读</a>
+            <a href="https://www.592wg.cn" target="_blank">好看的小说</a>
+            <a href="http://www.gzdushu.com" target="_blank">公主书城</a>
+            <a href="https://xhhread.com" target="_blank">红阅文学</a>
+            <a href="https://www.hotread.com" target="_blank">火星小说网</a>
+            <a href="https://www.sxyj.net" target="_blank">书香云集</a>
+            <a href="https://www.lingyun5.com" target="_blank">凌云文学网</a>
+            <a href="http://www.tiandizw.com" target="_blank">天地中文网</a>
+            <a href="http://mm.faloo.com" target="_blank">言情小说</a>
+            <a href="http://hjsm.tom.com" target="_blank">幻剑书盟</a>
+            <a href="http://www.ebtang.com" target="_blank">燕北堂中文网</a>
+            <a href="http://mm.shuhai.com" target="_blank">言情小说网</a>
+            <a href="http://www.baokan.tv " target="_blank">爆侃网文</a>
+            <a href="http://www.cooldu.com" target="_blank">酷读小说网</a>
+            <a href="http://www.hengyan.com" target="_blank">恒言中文网</a>
+            <a href="http://www.shuhai.com" target="_blank">都市小说</a>
+            <a href="http://www.zhulang.com" target="_blank">逐浪小说网</a>
+            <a href="http://guofeng.yuedu.163.com" target="_blank">网易原创</a>
+            <a href="https://www.heiyan.com" target="_blank">黑岩小说网</a>
+            <a href="http://www.yqsd.cn" target="_blank">言情书殿</a>
+            <a href="https://www.80tg.net" target="_blank">泰格文学</a>
+		</div>
+		<div class="footer-message footer-wrap">
+			<div class="message-links">
+				<a href="#">福利计划</a>
+				<span>|</span>
+				<a href="#">联系我们</a>
+				<span>|</span>
+				<a href="#">投诉</a>
+			</div>
+			<p>原创小说书殿，提供 玄幻小说、校园小说、都市小说、军事小说、职场小说、游戏小说、灵异小说、古代言情小说、现代言情小说等免费小说在线阅读</p>
+			<p>观点属其个人行为，不代表本站立场</p>
+			<p>© Copyright (C) 2014-2019 原创书殿 All Rights Reserved</p>
+		</div>
+	</footer>
+</body>
+<script type="text/javascript" src="/static/js/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="/static/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="/static/js/frame.js"></script>
+{% block js %}
+{% endblock %}
+<!-- <script type="text/javascript" src="/static/js/jquery.min.js"></script> -->
+<!-- <script type="text/javascript" src="/static/js/jquery-3.3.1.js"></script> -->
+<!-- <script type="text/javascript" src="/static/js/jquery.cookie.js"></script> -->
+</html>

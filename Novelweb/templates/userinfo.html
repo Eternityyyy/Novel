@@ -1,0 +1,70 @@
+{%extends 'frame.html' %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="/static/css/userinfo.css">
+{% endblock %}
+
+{% block container %}
+<div class="uinfo-title">
+	<h3 class="page-title">个人中心</h3>
+</div>
+<section class="main-section">
+	<div class="uinfo-left">
+		<div class="uinfo-left-top wrap-shodow">
+			<span>我的信息</span>
+			{% if 'aid' not in request.session %}
+			<span><a href="/user/{{request.session.uid}}/" class="uinfo-active">个人资料</a></span>
+			{% else %}
+			<span><a href="/author/{{request.session.aid}}/" class="uinfo-active">个人资料</a></span>
+			{% endif %}
+			<span><a href="/rack/">我的书架</a></span>
+			<span><a href="/pay_record/">充值记录</a></span>
+			<span><a href="/updateinfo/">修改资料</a></span>
+			{% if 'aid' not in request.session %}
+				<span><a href="/author/">成为作者</a></span>
+			{% endif %}
+			<span><a href="/logout/">退出登录</a></span>
+		</div>
+		{% if 'aid' in request.session %}
+
+		<div class="uinfo-left-bottom wrap-shodow">
+			<span>作者服务</span>
+			<span><a href="/mycreate/">书籍管理</a></span>
+			<span><a href="/money/">收入信息</a></span>
+		</div>
+		{% endif %}
+	</div>
+	<div class="uinfo-right wrap-shodow left-part">
+		{% block right%}
+		<h3 class="uinfo-right-title">个人中心</h3>
+		<div class="uinfo-main">
+			<div class="uinfo-avatar">
+				<img src="{{user.user_avatar.url}}">
+			</div>
+			<div class="uinfo-level">
+				<p class="name">{{ user.username }}</p>
+				<p class="userid">账号：{{ user.user_id }}</p>
+				{% load myfilter %}
+				<p class="level">用户等级：{{ user.user_level|level }}</p>
+			</div>
+		</div>
+		<div class="uinfo-money">
+			<span>金币：{{ user.gold }}</span>
+			<span>积分：{{ user.points }}</span>
+			<span>推荐票：{{ user.day_ticket_num }}</span>
+			<span>礼物量：{{ user.Wine_num}}</span>
+			<span>评论等级：{{ user.comment_level}}</span>
+			<span>注册时间：{{ user.register_time|date:'Y-m-d' }}</span>
+		</div>
+		{% endblock %}
+	</div>
+
+</section>
+{% endblock %}
+{% block js%}
+<!-- <script type="text/javascript">
+	$.ajaxSetup({
+		data:{csrfmiddlewaretoken:'{{ csrf_token}}'},
+	})
+</script> -->
+<script type="text/javascript" src="/static/js/userinfo.js"></script>
+{% endblock %}

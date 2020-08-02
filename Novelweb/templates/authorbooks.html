@@ -1,0 +1,33 @@
+{% extends 'frame.html' %}
+{% block container %}
+
+<section class="authorbooks">
+	<div class="book-right wrap-shodow">
+		<div class="author-avatar-box">
+			<div class="author-avatar">
+				<img class="avatar" src="{{author.Aut_user.user_avatar.url}}">
+			</div>
+			<span class="author-name">{{author.penname}}</span>
+		</div>
+		<div class="author-info">
+			<h4 class="title">作者信息</h4>
+			<p class="author-info-text">{{author.Author_info}}</p>
+		</div>
+	</div>
+	<div class="author-works wrap-shodow">
+		{% for work in works %}
+		<a href="/book/{{work.id}}/">
+			<div class="serach-item left-part">
+				<img src="{{work.Book_cover.url}}">
+				<div class="serach-item-info">
+					<h4 class="book-name">{{work.Book_name}}</h4>
+					<p class="book-category">分类：{{work.Book_type}}</p>
+					<p class="book-intro">{{work.Book_intro|safe}}</p>
+				</div>
+			</div>
+		</a>
+		{% endfor %}
+	</div>
+</section>
+
+{% endblock %}

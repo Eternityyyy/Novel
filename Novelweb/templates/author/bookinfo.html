@@ -1,0 +1,129 @@
+{% extends '../author_info.html' %}
+{% block right %}
+<h3 class="uinfo-right-title book-detail-info">书籍详情
+	<button class="book-pub big-btn">
+		{% if book.Book_pub %}
+		下架
+		{% else %}
+		发布
+		{% endif %}
+	</button>
+	<button class="big-btn pub-notice">公告</button>
+</h3>
+<div class="comment-textarea display notice-text">
+	<textarea placeholder="输入公告" required="true"></textarea>
+</div>
+<div class="book-info left-part">
+	<div class="book-info-top">
+		<img src="{{ book.Book_cover.url}}" data-book="{{book.id}}">
+		<div>
+			<p>书名：{{ book.Book_name}}</p>
+			<p>类型：{{ book.Book_type}}</p>
+			<p>标签：{{ book.Book_tags}}</p>
+			<p>创建时间：{{ book.Book_time|date:'Y-m-d' }}</p>
+			<p>
+				<span>状态：</span>
+				{% if book.Book_state %}
+				<span>已完结</span>
+				{% else %}
+				<span class="book-state-text">连载中</span>
+				{% endif %}
+			</p>
+		</div>
+	</div>
+	<p><span>简介：{{book.Book_intro|safe}}</span></p>
+	<div class="book-info-bottom">
+	</div>
+	<div class="book-info-comments">
+		<h3 class="bookinfo-title title-part">评论</h3>
+		<ul>
+			{% for comment in comments%}
+			 <li>
+				<p class="bookinfo-comment-text">{{ comment.Comment_text}}</p>
+				<p>
+					<span>{{ comment.Comment_time|date:'Y-m-d'}}</span>
+					<span>评论人：{{comment.Comment_user.username}}</span>
+					<a data-commentid="{{comment.id}}" class="del">删除</a>
+				</p>
+			</li>
+			{% endfor%}
+		</ul>
+	</div>
+</div>
+<div class="chapter-list">
+	<h3 class="bookinfo-title title-part">章节列表</h3>
+	<div class="chapter-item">
+		<ul>
+			{% for chapter in chapters %}
+			<li  data-chapter="{{chapter.id}}">
+				<a class="link">
+					{{ chapter.Chapter_title }}
+					<span>{{chapter.Chapter_time|date:'Y-m-d H:i:s'}}</span>
+					<span data-word-num="{{chapter.Chapter_word_num}}">{{chapter.Chapter_word_num}}字</span>
+				</a>
+				<div class="chapter-opretion">
+					{% if chapter.Chapter_pub %}
+					<a>已发布</a>
+					{% else %}
+					<a class="chapter-pub">发布</a>
+					{% endif %}
+					<a class="update-chapter">修改</a>
+					<select class="price-select" name="price">
+						{% ifequal chapter.Chapter_price 0 %}
+						<option value="0" selected>免费</option>
+						{% else %}
+						<option value="0">免费</option>
+						{% endifequal %}
+						{% ifequal chapter.Chapter_price 5 %}
+						<option value="5" selected>1000字/5金币</option>
+						{% else %}
+						<option value="5">1000字/5金币</option>
+						{% endifequal %}
+						{% ifequal chapter.Chapter_price 10 %}
+						<option value="10" selected>1000字/10金币</option>
+						{% else %}
+						<option value="10">1000字/10金币</option>
+						{% endifequal %}
+					</select>
+				</div>
+				<div class="chapter-content left-part display">{{chapter.Chapter_text|safe|linebreaksbr}}</div>
+			</li>
+			{% endfor %}
+			{% if not book.Book_state%}
+			<li><a href="/mycreate/{{book.id}}/addchapter/">添加章节</a></li>
+			<button class="end-btn big-btn">完结此书</button>
+			{% endif %}
+		</ul>
+	</div>
+</div>
+{% endblock %}
+{% block js%}
+<script type="text/javascript" src="/static/js/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="/static/js/highcharts.js"></script>
+<script type="text/javascript" src="/static/js/userinfo.js"></script>
+<script type="text/javascript">
+	var options = {
+            chart: {
+                type: 'column'                          //指定图表的类型，默认是折线图（line）
+            },
+            title: {
+                text: '{{book.Book_name}}'                 // 标题
+            },
+            xAxis: {
+                categories: ['收入','点击量', '收藏量', '礼物量','推荐票']   // x 轴分类
+            },
+            yAxis: {
+                title: {
+                    text: '书籍信息'                // y 轴标题
+                }
+            },
+            series: [{                              // 数据列
+                name: '数量',                        // 数据列名
+                data: [{{book.Income}},{{book.Click_num}},{{book.Collect_num}},{{book.Git_num}},{{book.recommend_num}}]                    // 数据
+            }]
+        };
+        // 图表初始化函数
+        // var chart = Highcharts.chart('manage-data', options);
+	$('.book-info-bottom').highcharts(options);
+</script>
+{% endblock %}

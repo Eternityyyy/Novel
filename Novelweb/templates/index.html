@@ -1,0 +1,233 @@
+{% extends 'frame.html' %}
+{% block container %}
+
+<section class="main-section">
+	<div class="section-recommend wrap-shodow">
+		<ul class="roll-ul">
+			{% for banner_book in banner_books %}
+			<a href="/book/{{banner_book.id}}/">
+				<li>
+					<img src="/static/img/{{banner_book.Book_name}}.jpg" alt=""><!-- 图片地址数据库中选出 ,li列表可循环生产-->
+					<div class="text-info">
+						<h3 class="book-name">《{{banner_book.Book_name}}》</h3>
+						<p class="text-author">{{banner_book.Book_author.penname}}</p>
+						<p class="book-intro">{{banner_book.Book_intro|safe}}</p>
+					</div>
+				</li>
+			</a>
+			{% endfor %}
+		</ul>
+		<ul class="roll-btn">
+			<li class="li-active"></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+	</div>
+	<div class="recommend-fylists wrap-shodow most-lists">
+		<h3 class="recommend-title">畅销榜</h3>
+		<ul class="recommend-list">
+			{%  for moneybook in money_books %}
+			{% if forloop.first %}
+			<li class="list-one">
+				<span class="ranking">1</span>
+				<div class="list-one-book">
+					<a href="/book/{{moneybook.id}}/"><img src="{{moneybook.Book_cover.url}}" class="wrap-shodow"></a>
+					<div class="list-book-info">
+						<h4 class="hide-text"><a href="/book/{{moneybook.id}}/">《{{moneybook.Book_name}}》</a></h4>
+						<p class="hide-text"><a href="/{{moneybook.Book_author.Aut_user_id}}/works/">{{moneybook.Book_author.penname}}</a></p>
+						<p class="book-intro">{{moneybook.Book_intro|safe}}</p>
+					</div>
+				</div>
+			</li>
+			{% else %}
+			<li>
+				<span class="ranking">{{forloop.counter}}</span>
+				<a href="/book/{{moneybook.id}}/" class="single-list">{{moneybook.Book_name}}</a>
+			</li>
+			{% endif %}
+			{% endfor %}
+		</ul>
+		<span class="load-more"><a href="/rank/?rank=0">查看更多>></a></span>
+	</div>
+</section>
+<section class="main-section">
+	<div class="wrap-shodow left-part batter-list">
+		<h3 class="part-title">精品重推</h3>
+		<div class="book-list-wrap">
+			{% for most_book in most_books%}
+			<div class="book-item">
+				<a href="/book/{{most_book.id}}">
+					<img src="{{most_book.Book_cover.url}}">
+				</a>
+				<div class="book-info">
+					<h4 class="book-name">{{ most_book.Book_name }}</h4>
+					<p class="book-category">分类：<a>{{most_book.Book_type}}</a></p>
+					<p class="book-intro">{{most_book.Book_intro|safe}}</p>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</section> 
+<section class="main-section">
+	<div class="wrap-shodow wrap-equal category-part left-part">
+		<h3 class="part-title">
+			<span>古代言情</span>
+			<a href="/library/?category=0">更多>></a>
+		</h3>
+		<div class="category-book-list_img">
+			<div class="big-bookcover">
+				<a href="/book/{{type_ancients_big.id}}/"><img src="{{type_ancients_big.Book_cover.url}}"></a>
+			</div>
+			<div class="book-items">
+				{% for type_ancient_middle in type_ancients_middle%}
+				<div class="category-book-item">
+					<a href="/book/{{type_ancient_middle.id}}/"><img src="{{type_ancient_middle.Book_cover.url}}"></a>
+					<div class="book-info">
+						<h4 class="book-name"><a href="/book/{{type_ancient_middle.id}}/">{{type_ancient_middle.Book_name}}</a></h4>
+						<p class="book-category">分类：<a>{{type_ancient_middle.Book_type}}</a></p>
+						<p class="book-text">{{type_ancient_middle.Book_intro|safe}}</p>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+		<div class="category-book-list_text">
+			{% for type_ancient_small in type_ancients_small %}
+			<p class="book-list-text">
+				<span>[{{type_ancient_small.Book_type}}]</span>
+				<a href="/book/{{type_ancient_small.id}}/">{{type_ancient_small.Book_name}}</a>
+			</p>
+			{% endfor %}
+		</div>
+	</div>
+	<div class="wrap-shodow wrap-equal category-part left-part">
+		<h3 class="part-title">
+			<span>现代言情</span>
+			<a href="/library/?category=2">更多>></a>
+		</h3>
+		<div class="category-book-list_img">
+			<div class="big-bookcover">
+				<a href="/book/{{type_moderns_big.id}}/"><img src="{{type_moderns_big.Book_cover.url}}"></a>
+			</div>
+			<div class="book-items">
+				{% for type_modern_middle in type_moderns_middle%}
+				<div class="category-book-item">
+					<a href="/book/{{type_modern_middle.id}}/"><img src="{{type_modern_middle.Book_cover.url}}"></a>
+					<div class="book-info">
+						<h4 class="book-name"><a href="/book/{{type_modern_middle.id}}/">{{type_modern_middle.Book_name}}</a></h4>
+						<p class="book-category">分类：<a>{{type_modern_middle.Book_type}}</a></p>
+						<p class="book-text">{{type_modern_middle.Book_intro|safe}}</p>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+		<div class="category-book-list_text">
+			{% for type_modern_small in type_moderns_small %}
+			<p class="book-list-text">
+				<span>[{{type_modern_small.Book_type}}]</span>
+				<a href="/book/{{type_modern_small.id}}/">{{type_modern_small.Book_name}}</a>
+			</p>
+			{% endfor %}
+		</div>
+	</div>
+</section>
+<section class="main-section">
+	<div class=" wrap-shodow free-part left-part">
+		<h3 class="part-title">新书上架</h3>
+		<div class="free-book-list">
+			{% for new_book in new_books %}
+			<div class="free-book-item">
+				<a href="/book/{{new_book.id}}/"><img src="{{new_book.Book_cover.url}}"></a>			
+				<p class="book-name">{{new_book.Book_name}}</p>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</section>
+<section class="main-section main-section-end">
+	<div class="new-part wrap-shodow left-part">
+		<h3 class="part-title">最近更新</h3>
+		<div class="new-book-list">
+			{% load myfilter %}
+			{% for key,latechapter in late_chapters.items %}
+			<div class="new-book-item"> 
+				<div>
+					<span>[{{latechapter.Chapter_book.Book_type}}]</span>
+					<a href="/book/{{latechapter.Chapter_book_id}}/" class="new-name">《{{latechapter.Chapter_book.Book_name}}》</a>
+					<a href="/{{latechapter.Chapter_book_id}}/{{latechapter.Chapter_id}}">{{latechapter.Chapter_title}}</a>
+					<!-- <img src="/static/img/vip.png"> -->
+				</div>
+				<div>
+					<a href="/{{latechapter.Chapter_book.Book_author.Aut_user_id}}/works/" class="new-author">{{latechapter.Chapter_book.Book_author.penname}}</a>
+					<span>{{latechapter.Chapter_time|date:'Y-m-d H:i:s'}}</span>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+	<div class="rank-part">
+		<div class="recommend-fylists wrap-shodow most-lists left-part">
+			<h3 class="recommend-title">订阅榜</h3>
+			<ul class="recommend-list">
+				{%  for subbook in sub_books %}
+				{% if forloop.first %}
+				<li class="list-one">
+					<span class="ranking">1</span>
+					<div class="list-one-book">
+						<a href="/book/{{subbook.id}}/"><img src="{{subbook.Book_cover.url}}" class="wrap-shodow"></a>
+						<div class="list-book-info">
+							<h4 class="hide-text"><a href="/book/{{subbook.id}}/">《{{subbook.Book_name}}》</a></h4>
+							<p class="hide-text"><a href="/{{subbook.Book_author.Aut_user_id}}/works/">{{subbook.Book_author.penname}}</a></p>
+							<p class="book-intro">{{subbook.Book_intro|safe}}</p>
+						</div>
+					</div>
+				</li>
+				{% else %}
+				<li>
+					<span class="ranking">{{forloop.counter}}</span>
+					<a href="/book/{{subbook.id}}/" class="single-list">{{subbook.Book_name}}</a>
+				</li>
+				{% endif %}
+				{% endfor %}
+			</ul>
+			<span><a href="/rank/?rank=3">查看更多>></a></span>
+		</div>
+		<div class="recommend-fylists wrap-shodow most-lists left-part list-end">
+			<h3 class="recommend-title">推荐榜</h3>
+			<ul class="recommend-list">
+				{%  for recbook in rec_books %}
+				{% if forloop.first %}
+				<li class="list-one">
+					<span class="ranking">1</span>
+					<div class="list-one-book">
+						<a href="/book/{{recbook.id}}/"><img src="{{recbook.Book_cover.url}}" class="wrap-shodow"></a>
+						<div class="list-book-info">
+							<h4 class="hide-text"><a href="/book/{{recbook.id}}/">《{{recbook.Book_name}}》</a></h4>
+							<p class="hide-text"><a href="/{{recbook.Book_author.Aut_user_id}}/works/">{{recbook.Book_author.penname}}</a></p>
+							<p class="book-intro">{{recbook.Book_intro|safe}}</p>
+						</div>
+					</div>
+				</li>
+				{% else %}
+				<li>
+					<span class="ranking">{{forloop.counter}}</span>
+					<a href="/book/{{recbook.id}}/" class="single-list">{{recbook.Book_name}}</a>
+				</li>
+				{% endif %}
+				{% endfor %}
+			</ul>
+			<span><a href="/rank/?rank=2">查看更多>></a></span>
+		</div>
+	</div>
+</section>
+
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="/static/js/index.js"></script>
+{% endblock %}

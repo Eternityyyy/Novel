@@ -1,0 +1,25 @@
+{% extends '../userinfo.html' %}
+{% block right %}
+<h3 class="uinfo-right-title">申请作者</h3>
+<div class="author-res left-part">
+	<p class="notice-text">*信息用于版权保护和收入提现使用</p>
+	<form class="author-form" method="POST" action="/author/">
+		{% csrf_token %}
+		<ul>
+			<li><label>个人账号：</label>{{ user.user_id }}</li>
+			<li><label>笔名：</label><input type="text" name="penname" value="{{user.username}}"></li>
+			<li><label>真实姓名：</label><input type="text" name="realname" required="true"></li>
+			<li><label>联系电话：</label><input type="tel" name="phone" required="true"></li>
+			<li><label>个人描述：</label><textarea rows="8" cols="30" name="discript"></textarea></li>
+			<li><label>邀请码：</label><input type="text" name="code" required="true">
+				{% if error %}
+				<span>{{error}}</span>
+				{%endif%}
+			</li>
+			
+		</ul>
+		<button type="submit">立即申请</button>
+	</form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,135 @@
+{% extends 'frame.html' %}
+{% block container %}
+
+<div class="library-title">
+	<h3 class="page-title">
+	原创书库
+	</h3>
+</div>
+<section class="min-section">
+	<div class="library-left">
+		<div class="wrap-shodow library-category a-link">
+			<a  data-condition="" class="library-category-item condition-active">全部分类</a>
+			<a  data-condition= "category=0" class="library-category-item">古代言情</a>
+			<a  data-condition= "category=1" class="library-category-item">仙侠奇缘</a>
+			<a  data-condition= "category=2" class="library-category-item">现代言情</a>
+			<a  data-condition= "category=3" class="library-category-item">浪漫青春</a>
+			<a  data-condition= "category=4" class="library-category-item">玄幻言情</a>
+			<a  data-condition= "category=5" class="library-category-item">悬疑推理</a>
+			<a  data-condition= "category=6" class="library-category-item">游戏竞技</a>
+			<a  data-condition= "category=7" class="library-category-item">轻小说</a>
+			<a  data-condition= "category=8" class="library-category-item">科幻空间</a>
+
+		</div>
+		<div class="recommend-fylists wrap-shodow">
+			<h3 class="recommend-title">酒酒土豪榜</h3>
+			<ul class="recommend-list">
+				{%  for moneybook in money_books %}
+				{% if forloop.first %}
+				<li class="list-one">
+					<span class="ranking">1</span>
+					<div class="list-one-book">
+						<a href="/book/{{moneybook.id}}/"><img src="{{moneybook.Book_cover.url}}" class="wrap-shodow"></a>
+						<div class="list-book-info">
+							<h4 class="hide-text"><a href="/book/{{moneybook.id}}/">《{{moneybook.Book_name}}》</a></h4>
+							<p class="hide-text"><a href="/{{moneybook.Book_author.Aut_user_id}}/works/">{{moneybook.Book_author.penname}}</a></p>
+							<p class="book-intro">{{moneybook.Book_intro|safe}}</p>
+						</div>
+					</div>
+				</li>
+				{% else %}
+				<li>
+					<span class="ranking">{{forloop.counter}}</span>
+					<a href="/book/{{moneybook.id}}/" class="single-list">{{moneybook.Book_name}}</a>
+				</li>
+				{% endif %}
+				{% endfor %}
+			</ul>
+			<span>查看更多>></span>
+		</div>
+	</div>
+	<div class="library-right">
+		<div class="wrap-shodow library-condition left-part a-link">
+			<!-- <div class="library-condition-item condition-words">
+				<span class="condition-name">作品字数：</span>
+				<span class="condition-active">不限</span>
+				<span>30万字以下</span>
+				<span>30万字以下</span>
+				<span>30万字以下</span>
+				<span>30万字以下</span>
+				<span>30万字以下</span>
+			</div> -->
+			<div class="library-condition-item condition-words condition-order">
+				<span class="condition-name">排列方式：</span>
+				<span><a href="" data-condition = "" class="condition-active">不限</a></span>
+				<span><a data-condition = "order=0">总点击</a></span>
+				<span><a data-condition = "order=1">总收藏</a></span>
+				<span><a data-condition = "order=2">总推荐</a></span>
+				<span><a data-condition = "order=3">总订阅</a></span>
+			</div>
+			<div class="library-condition-item condition-words condition-state">
+				<span class="condition-name">作品字数：</span>
+				<span><a href="" data-condition = "" class="condition-active">不限</a></span>
+				<span><a data-condition = "state=0">连载中</a></span>
+				<span><a data-condition = "state=1">已完结</a></span>
+			</div>
+		</div>
+		<div class="wrap-shodow library-list">
+			<table>
+                <thead>
+                    <th>序号</th>
+                    <th>书名/最新章节</th>
+                    <th>作者</th>
+                    <th>状态</th>
+                    <th>更新时间</th>
+                </thead>
+                <tbody>
+                	{% load myfilter %}
+                	{% for pagebook in pagebooks%}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>
+                            <a href="/book/{{pagebook.id}}/" class="library-book-name">《{{pagebook.Book_name}}》</a><br>
+                        	{% with chapter=pagebook|latechapter%}
+                            <a href="/{{pagebook.id}}/{{chapter.Chapter_id}}/" class="chapter">
+	                            {{chapter.Chapter_title}}
+                            </a>
+                        </td>
+                        <td>
+                        	<a href="/book/{{pagebook.id}}/">{{pagebook.Book_author.penname}}</a>
+                        </td>
+                        {% if pagebook.Book_state %}
+                        <td>已完结</td>
+                        {% else %}
+                        <td>连载中</td>
+                        {% endif %}
+                        <td>
+                            {{chapter.Chapter_time|date:'Y-m-d H:i:s'}}
+                        	{% endwith %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+             
+			<ul class="pagination">
+				{% if pagebooks.has_previous %}
+				<li><a data-condition="page=1"><<</a></li>
+				<li><a data-condition="page={{pagebooks.previous_page_number}}">{{pagebooks.previous_page_number}}</a></li>
+				{% endif %}
+				<li><a data-condition="page={{pagebooks.number}}">{{pagebooks.number}}</a></li>
+				{% if pagebooks.has_next %}
+				<li><a data-condition = "page={{pagebooks.next_page_number}}">{{pagebooks.next_page_number}}</a></li>
+				<!-- <li><a href="?page={{pagebooks.paginator.num_pages}}">>></a></li> -->
+				<li><a data-condition="page={{pagebooks.paginator.num_pages}}">>></a></li>
+				{% endif %}
+			</ul>
+		</div>
+	</div>
+</section>
+
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="/static/js/library.js"></script>
+{% endblock %}

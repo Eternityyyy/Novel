@@ -1,0 +1,16 @@
+{% extends 'userinfo.html'%}
+
+{% block right %}
+<h3 class="uinfo-right-title">个人信息</h3>
+<div class="author-info">
+	<p><span>个人账号：</span>{{ author.Aut_user.user_id}}</p>
+	<p><span>头像：</span><img src="{{ author.Aut_user.user_avatar.url}}"></p>
+	<p><span>笔名：</span>{{ author.penname }}</p>
+	<p><span>电话：</span>{{ author.phone}}</p>
+	<p><span>金币：</span>{{ author.Aut_user.gold}}</p>
+	<p><span>积分：</span>{{ author.Aut_user.points}}</p>
+	<p><span>推荐票：</span>{{ author.Aut_user.day_ticket_num}}</p>
+	<p><span>礼物量：</span>{{ author.Aut_user.Wine_num}}</p>
+	<p><span>评论等级：</span>{{ author.Aut_user.comment_level}}</p>
+</div>
+{% endblock %}

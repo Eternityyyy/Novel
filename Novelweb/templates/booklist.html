@@ -1,0 +1,12 @@
+{% extends 'frame.html' %}
+{% block container %}
+
+<div class="book-list">
+	<ul>
+		{% for book in books %}
+		<li><a href="/book/{{book.id}}/">{{book.Book_name}}</a></li>
+		{% endfor %}
+	</ul>
+</div>
+
+{% endblock %}

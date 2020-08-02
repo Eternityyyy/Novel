@@ -1,0 +1,60 @@
+{% extends 'author_info.html' %}
+{% block right %}
+<h3 class="uinfo-right-title">财务信息</h3>
+<div class="left-part economy-box">
+	<div class="economy">
+		{% for book in books %}
+		<h3><i>{{book.Book_name}}</i>的收入信息</h3>
+		<table>
+			<tr>
+				<th>订阅收入(金币)</th>
+				<th>礼物收入(金币)</th>
+				<th>总收入(RMB)</th>
+			</tr>
+			<tr>
+				{% load myfilter %}
+				<td>{{book.chapterIncome}}</td>
+				<td>{% widthratio book.Git_num 1 100%}</td>
+				<td class="book-income">{{book.Income|divi:100}}</td>
+			</tr>
+		</table>
+		{% empty %}
+		<h3>暂无书籍</h3>
+		{% endfor %}
+		<p>
+			<span>累计收入：<i></i></span>
+			<span>剩余金额：<i id="cash">{{author.Income}}</i></span>
+		</p>
+	</div>
+	<div class="cash-record">
+		<h3 class="title-part">提现记录</h3>
+		<table>
+			<thead>
+				<tr>
+					<th>提现金额</th>
+					<th>提现进度</th>
+					<th>提现时间</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for cashout in cashouts%}
+				<tr>
+					<td>{{cashout.Cash_count}}</td>
+					{% load myfilter %}
+					<td>{{cashout|cashstatus}}</td>
+					<td>{{cashout.Cashout_time|date:'Y-m-d H:i:s'}}</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	<form action="/{{request.session.aid}}/cashout/" method="POST" class=" economy-form">
+		{% csrf_token %}
+		<input type="number" name="cash" class="input" placeholder="提现金额" required="true" min="1">
+		<button class="big-btn">提现</button>
+		<p class="notice-text"></p>
+	</form>
+	<p class="notice-text">注：提现之后待工作人员审核打款，不得超出总收入</p>
+</div>
+
+{% endblock %}

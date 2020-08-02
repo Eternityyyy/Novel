@@ -1,0 +1,42 @@
+{% extends 'frame.html' %}
+{% block container %}
+
+<div class="rank-title">
+	<h3 class="page-title">
+		排行榜
+	</h3>
+</div>
+<section class="rank-content">
+	<div class="wrap-shodow rank-left">
+		<a href="/rank/" class="library-category-item library-active">排行榜总览</a>
+		<a href="?rank=0" class="library-category-item">土豪榜</a>
+		<a href="?rank=1" class="library-category-item">收藏榜</a>
+		<a href="?rank=2" class="library-category-item">推荐榜</a>
+		<a href="?rank=3" class="library-category-item">订阅榜</a>
+		<a href="?rank=4" class="library-category-item">礼物榜</a>
+		<a href="?rank=5" class="library-category-item">点击榜</a>
+	</div>
+	<div class="wrap-shodow rank-list-box left-part">
+		<div class="new-book-list">
+			{% for rank in ranks %}
+			<div class="new-book-item"> 
+				<div>
+					{% load myfilter %}
+					<span>[{{rank.Book_type}}]</span> 
+					<a href="/book/{{rank.id}}/" class="new-name">《{{rank.Book_name}}》</a>
+					{% with chapter=rank|latechapter%}
+					<a href="/{{rank.id}}/{{chapter.Chapter_id}}/">{{chapter.Chapter_title}}</a>
+					<!-- <img src="/static/img/vip.png"> -->
+				</div>
+				<div>
+					<a href="/{{rank.Book_author.Aut_user_id}}/works/" class="new-author">{{rank.Book_author.penname}}</a>
+					<span>{{chapter.Chapter_time|date:'Y-m-d H:i:s'}}</span>
+				</div>
+				{% endwith %}
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</section>
+
+{% endblock %}

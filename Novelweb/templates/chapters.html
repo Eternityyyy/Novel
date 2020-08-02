@@ -1,0 +1,34 @@
+{% extends 'frame.html' %}
+{% block container%}
+<p class="web-map">
+	当前位置：
+	<a href="/">首页</a>>><a href="/book/{{book.id}}/">{{book.Book_name}}</a>>><span>目录</span>
+</p>
+<section class="min-section wrap-shodow left-part directory">
+	<div class="directory-book-name">
+		<h1>{{book.Book_name}}</h1>
+		<span>作者：{{book.Book_author.penname}}</span>
+	</div>
+	<div class="directory-list">
+		<p class="title-part">
+			正文
+			<span>（{% if book.Book_state %}已完结{% else %}连载中{%endif%}）</span>
+		</p>
+		<div class="directory-items">
+		{% for chapter in chapters%}
+			<p class="directory-item">
+				<a href="/{{book.id}}/{{chapter.Chapter_id}}/">
+					<span class="directory-name">{{chapter.Chapter_title}}</span>
+					{% if chapter.Chapter_price > 0 %}
+					<img src="/static/img/money.png">
+					{% endif %}
+				</a>
+				<span class="item-time">{{chapter.Chapter_time|date:'Y-m-d'}}</span>
+			</p>
+			{% empty %}
+			<p>暂无任何章节</p>
+		{% endfor %}
+		<!-- <p class="directory-more">点击查看更多</p> -->
+	</div>
+</section>
+{% endblock%}

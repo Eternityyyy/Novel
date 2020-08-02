@@ -1,0 +1,244 @@
+{% extends 'frame.html' %}
+{% block container %}
+
+<p class="web-map">
+	当前位置：
+	<a href="/">首页</a>>><span>{{book.Book_name}}</span>
+</p>
+{% load myfilter %}
+<section class="min-section">
+	{% block bookinfo %}
+	<div class="book-left">
+		<div class="book-mess-box wrap-shodow left-part">
+			<div class="book-info-box">
+				<div class="book-cover-box">
+					<div class="book-cover">
+						<img src="{{book.Book_cover.url}}">
+					</div>
+					<div class="book-collect">
+						{% if 'uid' in request.session %}
+							{% if collectstatus %}
+							<img src="/static/img/collect.png" data-bookid="{{book.id}}" data-collect-status="{{collectstatus}}" class="collect-img">
+							{%else%}
+							<img src="/static/img/un-collect.png" data-bookid="{{book.id}}" data-collect-status="{{collectstatus}}" class="collect-img">
+							{% endif %}
+						{%else%}
+						<a href="/login/"><img src="/static/img/un-collect.png"></a>
+						{% endif %}
+
+						<p>收藏<span>(有<i>{{book.Collect_num}}</i>个人收藏)</span></p>
+					</div>
+				</div>
+				<div class="book-mess">
+					<h1 class="book-name">{{book.Book_name}}</h1>
+					<p class="book-classify">
+						<span>{{ book.Book_type}}</span>
+						<span>{{ book.Click_num}}次点击</span>
+						<span>{{ book|word}}字</span>
+					</p>
+					<div class="book-desc">{{book.Book_intro|safe}}<br>
+					</div>
+					<p class="book-major">
+						主角：
+						<a>{{book.Book_manleader}}{{book.Book_womanleader}}</a>
+					</p>
+					<p class="book-tags">
+						标签：
+						{% for tag in tags%}
+						<span><a>{{tag}}</a></span>
+						{%endfor%}
+						
+					</p>
+					<div class="book-operator">
+						<a href="/{{book.id}}/1/" class="operator-btn begin-read">开始阅读</a>
+						<a href="/{{book.id}}/chapters/" class="operator-btn book-chapters">目录</a>
+					</div>
+					{% if 'uid' in request.session %}
+					<span class="addrack">加入书架</span>
+					{%else%}
+					<a href="/login/" class="login-rack">登录加入书架</a>
+					{%endif%}
+
+				</div>
+			</div>
+			<div class="book-author-say">
+				<p>作者有话说：</p>
+				<p> {{book.Book_notice}}</p>
+			</div>
+			<div class="book-lastest-chapter">
+				<h3 class="title-part">最新章节</h3>
+				{% if chapter %}
+				<p class="chapter-name">
+					<a href="/{{chapter.Chapter_book.id}}/{{chapter.Chapter_id}}/">{{ chapter.Chapter_title}}</a>
+					<span>更新时间：{{chapter.Chapter_time|date:'Y-m-d H:i:s'}}</span>
+				</p>
+				<div class="late-chapter-content">
+					<a href="/{{chapter.Chapter_book.id}}/{{chapter.Chapter_id}}/">{{chapter.Chapter_text|safe}}</a>
+				</div>
+				{% else %}
+				<p class="chapter-name">暂无章节</p>
+				{% endif %}
+			</div>
+		</div>
+		<div class="fansmove wrap-shodow left-part">
+			<h3 class="title-part">粉丝互动</h3>
+			<div class="fans-ticket left-part">
+				<div>
+					<img src="/static/img/recommendticket.png">
+					<span>已获得票数：<i>{{book.recommend_num}}</i>票</span>
+				</div>
+				{% if 'uid' in request.session%}
+				<button>投推荐票</button>
+				{% else %}
+				<a href="/login/">登录投票</a>
+				{%endif%}
+			</div>
+			<p>觉得精彩就送礼吧!已得礼物 x<i>{{book.Git_num}}</i></p>
+			<div class="fans-gif left-part">
+				<div class="gif-item">
+					<img src="/static/img/prop7.png">
+					<span>点赞</span>
+					<span class="gif-money">100金币</span>
+				</div>
+				<div class="gif-item">
+					<img src="/static/img/prop9.png">
+					<span>黄金玫瑰</span>
+					<span class="gif-money">100金币</span>
+				</div>
+			</div>
+		</div>
+		<div class="comment-list-box wrap-shodow left-part">
+			<h3 class="title-part title-comment">
+				<span>评论({{comments|length}}条)</span>
+				{% if 'uid' in request.session %}
+				<button class="comment-btn">我要评论</button>
+				{% endif %}
+			</h3>
+			<div class="comment-textarea display">
+				<form action="/book/{{book.id}}/" method="POST">
+					{% csrf_token %}
+					<textarea placeholder="评论内容" name="commenttext" required="true"></textarea>
+					<button type="submit">发表评论</button>
+				</form>
+			</div>
+			<div class="comment-list">
+				{% for comment in comments %}
+				<div class="comment-item">
+					<div class="user-avatar-box" style="width: min-content">
+						<img src="{{ comment.Comment_user.user_avatar.url}}" class="user-avatar">
+					</div>
+					<div class="comment-right" style="width: 100%">
+						<p class="user-name">
+							{{comment.Comment_user.username}}
+							<span class="user-level">lv.{{comment.Comment_user.user_level|level }}</span>
+							<span class="comment-level">{{comment.Comment_user.user_level|level }}级评论员</span>
+						</p>
+						<p class="comment-content">{{comment.Comment_text}}</p>
+						<div class="comment-info">
+							<span>{{comment.Comment_time|date:'Y-m-d H:i:s'}}</span>
+							<span>{{replys_dict|select:comment.id|length}}</span>
+						</div>
+						<div class="reply-list">
+							{% for key,replys in replys_dict.items %}
+								{% if key is comment.id %}
+								{% for reply in replys %}
+									<div class="reply-item">
+										<img src="{{ reply.Comment_user.user_avatar.url}}">
+										<div class="reply-user">
+											<p class="user-name">
+												{{replay.Comment_user.username}}
+												<span class="reply-time">{{reply.Comment_time|date:'Y-m-d H:i:s' }}</span>
+											</p>
+											<p class="reply-content">{{reply.Comment_text}}</p>
+										</div>
+									</div>
+									{% endfor %}
+								{% endif %}
+							{% endfor %}
+							<div class="reply-info">
+								<!-- <span><a href="#">还有1条回复，点击查看>></a></span> -->
+								<button class="reply-btn comment-btn">我要评论</button>
+							</div>
+							<div class="comment-textarea display">
+								<form action="/reply/{{book.id}}/{{comment.id}}/" method="POST">
+									{% csrf_token %}
+									<textarea placeholder="回复内容" name="commenttext" required="true"></textarea>
+									<button type="submit">发表评论</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+	{% endblock%}
+	<div class="book-right">
+		{% block authorinfo %}
+		<div class="wrap-shodow book-author-box">
+			<div class="author-avatar-box">
+				<div class="author-avatar">
+					<img class="avatar" src="{{book.Book_author.Aut_user.user_avatar.url}}">
+				</div>
+				<span class="author-name">{{book.Book_author.penname}}</span>
+			</div>
+			<div class="author-info">
+				<h4 class="title">作者信息</h4>
+				<p class="author-info-text">{{book.Book_author.Author_info}}</p>
+			</div>
+			<div class="author-info">
+				<h4 class="title">作者公告</h4>
+				<p class="author-info-text">{{book.Book_notice}}</p>
+			</div>
+			<div class="author-info">
+				<h4 class="title">作者的其他作品</h4>
+				<div class="other-books">
+					{% for otherbook in other_books %}
+					<div class="other-book">
+						<a href="/book/{{otherbook.id}}/">
+							<img src="{{otherbook.Book_cover.url}}">
+						</a>
+						<div class="otherbook-info">
+							<p class="other-book-name">{{otherbook.Book_name}}</p>
+							<p class="book-intro">{{otherbook.Book_intro|safe}}</p>
+						</div>
+					</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+		{% endblock %}
+		<div class="recommend-fylists wrap-shodow">
+			<h3 class="recommend-title">同类推荐</h3>
+			<ul class="recommend-list">
+				{%  for typebook in type_books %}
+				<li>
+					<span class="ranking">{{forloop.counter}}</span>
+					<a href="/book/{{typebook.id}}/" class="single-list">{{typebook.Book_name}}</a>
+				</li>
+				{% endfor %}
+			</ul>
+		</div>
+		<div class="recommend-fylists wrap-shodow">
+			<h3 class="recommend-title">畅销榜</h3>
+			<ul class="recommend-list">
+				{%  for moneybook in money_books %}
+				
+				<li>
+					<span class="ranking">{{forloop.counter}}</span>
+					<a href="/book/{{moneybook.id}}/" class="single-list">{{moneybook.Book_name}}</a>
+				</li>
+				{% endfor %}
+			</ul>
+			<span class="load-more"><a href="/rank/?rank=0">查看更多>></a></span>
+		</div>
+	</div>
+</section>
+
+{% endblock %}
+{% block js %}
+<script type="text/javascript" src="/static/js/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="/static/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="/static/js/book.js"></script>
+{% endblock%}

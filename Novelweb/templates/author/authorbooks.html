@@ -1,0 +1,39 @@
+{% extends '../author_info.html' %}
+{% block right %}
+
+<h3 class="uinfo-right-title">书籍管理</h3>
+<div class="create-book-list left-part">
+	<a href="/create_book/" class="book-add">添加作品</a>
+	<table>
+		<tr>
+			<th>书名</th>
+			<th>分类/标签</th>
+			<th>已发布字数</th>
+			<th>收藏</th>
+			<th>状态</th>
+			<th>操作</th>
+		</tr>
+		{% for book in books %}
+		<tr>
+			<td class="create-bookname">
+				<img src="{{book.Book_cover.url}}">
+				<p>{{book.Book_name}}<br><span>类型：{{book.Book_type}}</span></p>
+			</td>
+			<td>
+				<span>{{book.Book_type}}</span><br>
+				<span>{{book.Book_tags}}</span>
+			</td>
+			<td class="book-word-num"><span>共1234556字</span></td>
+			<td>{{book.Collect_num}}</td>
+			{% if book.Book_state %}
+			<td class="book-state"><span>已完结</span></td>
+			{%else%}
+			<td class="book-state"><span>连载中</span></td>
+			{% endif %}
+			<td><a href="/mycreate/{{book.id}}/">查看详情</a></td>
+		</tr>
+			{% endfor %}
+	</table>
+</div>
+
+{% endblock%}

@@ -1,0 +1,30 @@
+{% extends '../userinfo.html' %}
+
+{% block right %}
+
+<h3 class="uinfo-right-title">充值记录</h3>
+<div class="pay-record">
+	<table>
+		<thead>
+			<tr>
+				<th>订单号</th>
+				<th>交易金额</th>
+				<th>订单状态</th>
+				<th>交易时间</th> 
+			</tr>
+		</thead>
+		<tbody>
+			{% for order in orders%}
+			<tr>
+				<td>{{order.Order_sn}}</td>
+				<td>{{order.order_mount}}</td>
+				{% load myfilter %}
+				<td>{{order|paystatus}}</td>
+				<td>{{order.Order_time|date:'Y-m-d H:i:s'}}</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+
+{% endblock %}

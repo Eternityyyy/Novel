@@ -1,0 +1,20 @@
+{% extends '../userinfo.html'%}
+{% block right %}
+<h3 class="uinfo-right-title">我的书架</h3>
+<div class="rack-box">
+	{% for bookrack in bookracks %}
+	<div class="bookrack-item">
+		<div class="bookrack-box">
+			<a href="/book/{{bookrack.Bookrack_book.id}}/">
+				<img src="{{bookrack.Bookrack_book.Book_cover.url}}">
+				<span>{{bookrack.Bookrack_book.Book_name}}</span>
+			</a>
+		</div>
+	</div>
+	{% empty%}
+	<h1>暂无书籍</h1>
+	{% endfor %}
+</div>
+
+
+{% endblock %}

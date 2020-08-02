@@ -1,0 +1,13 @@
+{% extends '../author_info.html' %}
+{% block right %}
+
+<div class="addchapter edit-chapter">
+	<form method="POST" action="/mycreate/{{bookid}}/addchapter/">
+		{% csrf_token %}
+		<input type="text" name="chapter_name" placeholder="给文章来个标题吧" class="input chapter-title">
+		<textarea cols="50" rows="10" name="chapter_text" class="input chapter-text" placeholder="至少1000字才能发布"></textarea>
+		<button type="submit">添加</button>
+	</form>
+</div>
+
+{% endblock %}

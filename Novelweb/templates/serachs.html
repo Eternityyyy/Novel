@@ -1,0 +1,23 @@
+{% extends 'frame.html' %}
+
+{% block container %}
+
+<h3 class="page-title">搜索结果</h3>
+<div class="serach-books wrap-shodow">
+	{% for serach in serachs %}
+	<a href="/book/{{serach.id}}/">
+		<div class="serach-item left-part">
+			<img src="{{serach.Book_cover.url}}">
+			<div class="serach-item-info">
+				<h4 class="book-name">{{serach.Book_name}}</h4>
+				<p class="book-category">分类：{{serach.Book_type}}</p>
+				<p class="book-intro">{{serach.Book_intro|safe}}</p>
+			</div>
+		</div>
+	</a>
+	{% empty %}
+	<div class="serach-item left-part">无结果</div>
+	{% endfor %}
+</div>
+
+{% endblock %}

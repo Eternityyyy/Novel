@@ -15,7 +15,7 @@ django-import-export==2.3.0
 django-reversion==3.0.7
 et-xmlfile==1.0.1
 future==0.18.2
-httplib2==0.17.3
+httplib2==0.18.0
 idna==2.10
 jdcal==1.4.1
 MarkupPy==1.14

@@ -91,9 +91,11 @@ DATABASES = {
         # Mysql数据库的配置
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'novelweb',
-        'USER': 'wine',
-        'PASSWORD': '098765qw',
-        'HOST': 'LOCALHOST',
+        # 'USER': 'wine',
+        'USER': 'root',
+        'PASSWORD': '',
+        # 'PASSWORD': '098765qw',
+        'HOST': 'localhost',
         'PORT': '3306',
     }
 }

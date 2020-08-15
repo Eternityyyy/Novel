@@ -7,7 +7,7 @@
 		{% csrf_token %}
 		<ul>
 			<li><label>个人账号：</label>{{ user.user_id }}</li>
-			<li><label>用户名：</label><input type="text" name="username" value="{{user.username}}" class="input" required="true"></li>
+			<li><label>用户名：</label><input type="text" name="username" value="{{user.username}}" class="input" required="true" readonly="true"></li>
 			{% if author%}
 			<li><label>笔名：</label><input type="text" name="penname" value="{{author.penname}}" class="input" required="true"></li>
 			{% endif %}

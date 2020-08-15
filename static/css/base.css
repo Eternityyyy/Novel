@@ -23,6 +23,9 @@ a{
   --ShortTextColor: #999;
   --ButtonBackColor: #e6e6e6;
 }
+span{
+	cursor: default;
+}
 
 body{
 	background: rgb(233,233,233);

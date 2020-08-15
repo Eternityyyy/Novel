@@ -138,8 +138,9 @@ def rank(request):
 
 # 作者的所有上架书籍显示
 def autWorks(request,aid):
-	works = Book.objects.filter(Aut_user_id =aid).filter(Book_pub = True);
-	return render(request,'authorbooks.html',{'works':works})
+	author = Author.objects.get(Aut_user_id = aid)
+	works = Book.objects.filter(Book_author_id = aid).filter(Book_pub = True);
+	return render(request,'authorbooks.html',{'works':works,'author':author})
 
 # 跨站攻击的注释器,书籍详情页的处理函数
 @csrf_exempt

@@ -7,7 +7,7 @@ Crypto==1.4.1
 cryptography==2.8
 defusedxml==0.6.0
 diff-match-patch==20200713
-Django==3.0
+Django==3.1.9
 django-apscheduler==0.3.0
 django-crispy-forms==1.9.0
 django-formtools==2.2
